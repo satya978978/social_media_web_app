@@ -1,8 +1,11 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
+const serverless = require('serverless-http');
 const app = require('../app');
 
 let isConnected = false;
+
+const handler = serverless(app); // Wrap express app
 
 module.exports = async (req, res) => {
   if (!isConnected) {
@@ -19,5 +22,5 @@ module.exports = async (req, res) => {
     }
   }
 
-  return app(req, res); // Express handles the request
+  return handler(req, res); // Now properly wrapped for serverless
 };
