@@ -2,6 +2,8 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const serverless = require('serverless-http');
 const app = require('../app');
+const cors =require('cors')
+app.use(cors())
 
 let isConnected = false;
 
