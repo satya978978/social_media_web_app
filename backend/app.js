@@ -92,6 +92,7 @@ app.post("/login", async (req, res) => {
   }
   bcrypt.compare(password, user.password, (err, result) => {
     if (result == true) {
+console.log("JWT_SECRET IN USE:", JWT_SECRET)
 
       const token = jwt.sign({ email: email }, JWT_SECRET)
       res.cookie("token", token, {
