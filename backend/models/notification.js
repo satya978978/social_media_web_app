@@ -1,7 +1,5 @@
-const mongoose = require('mongoose')
-mongoose.connect(`mongodb://127.0.0.1:27017/social_world`)
-const user =require("./db")
-const posts= require('./posts')
+
+const mongoose = require('mongoose');
 
 const notification = mongoose.Schema({
     from_user:{

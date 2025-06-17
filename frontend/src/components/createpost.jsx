@@ -29,7 +29,7 @@ function CreatePost({ refresh }) {
         form.append("cap_image", file);
       });
 
-      const response = await axios.post("http://localhost:3000/ai_caption", form, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/ai_caption`, form, {
         withCredentials: true,
       });
       const aiCaption = response.data.caption;
@@ -50,7 +50,7 @@ function CreatePost({ refresh }) {
         form.append("image", file);
       });
 
-      await axios.post("http://localhost:3000/creat_post", form, {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/creat_post`, form, {
         withCredentials: true,
       });
 

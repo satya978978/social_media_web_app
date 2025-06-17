@@ -20,7 +20,7 @@ function Post({ username, caption, media, time, dp, postid, comments, likes, lik
     }
 
     try{
-      const response = await axios.post(`http://localhost:3000/post/${postid}`, { comment }, { withCredentials: true })  
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/post/${postid}`, { comment }, { withCredentials: true })  
       const newComment = response.data
       setComment("");
       setcommentlist(prev => [newComment, ...prev])
@@ -37,13 +37,13 @@ function Post({ username, caption, media, time, dp, postid, comments, likes, lik
   }, [likedbyuser]);
 
   const likeing = async () => {
-    const response = await axios.post(`http://localhost:3000/like_data/${postid}`, {}, {withCredentials:true})
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/like_data/${postid}`, {}, {withCredentials:true})
     setlikecount(response.data.likes)
     setLiked(response.data.liked)
   }
 
   const saving = async () => {
-    const reponse = await axios.post(`http://localhost:3000/save_data/${postid}`, {}, {withCredentials:true})
+    const reponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/save_data/${postid}`, {}, {withCredentials:true})
     const saved_res = reponse.data.saved
     setSaved(saved_res)
   }

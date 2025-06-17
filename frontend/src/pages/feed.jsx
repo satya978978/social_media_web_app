@@ -11,7 +11,7 @@ function Feed() {
   const [posts, setposts] = useState([])
   
   const fetchpost = () => {
-    axios.post('http://localhost:3000/post_data', {}, { withCredentials: true })
+    axios.post(`${import.meta.env.VITE_BACKEND_URL}/post_data`, {}, { withCredentials: true })
       .then((res) => {
         setposts(res.data)
       })

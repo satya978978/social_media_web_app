@@ -25,9 +25,8 @@ function Login() {
     setLoading(true)
     
     try {
-      const response = await axios.post("http://localhost:3000/login", userdata, {
-        withCredentials: true
-      })
+console.log("Sending login to:", `${import.meta.env.VITE_BACKEND_URL}/login`);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, userdata, { withCredentials: true })
       
       if (response.data.message === "ok") {
         navigate('/feed')

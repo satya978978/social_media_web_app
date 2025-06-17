@@ -1,7 +1,7 @@
 const express = require('express')
 const { sign } = require('jsonwebtoken')
 const cors = require('cors')
-const usermodel = require('./models/db')
+const usermodel = require('./models/users')
 const postmodel = require('./models/posts')
 const ntf_model=require('./models/notification')
 const bcrypt = require('bcrypt')
@@ -18,6 +18,13 @@ const storage = multer.memoryStorage()
 const image = multer({ storage: storage })
 const profile = multer({ storage: storage })
 const aiCapUpload = multer({ storage: multer.memoryStorage() });
+require('dotenv').config();
+
+const PORT = process.env.PORT || 3000;
+const MONGO_URL = process.env.MONGO_URL;
+const CLIENT_URL = process.env.CLIENT_URL;
+const JWT_SECRET = process.env.JWT_SECRET;
+
 
 
 
@@ -56,7 +63,7 @@ app.post("/signup", async (req, res) => {
       }
 
     });
-    const token = jwt.sign({ email: email }, "secretkey")
+    const token = jwt.sign({ email: email },JWT_SECRET )
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
@@ -75,7 +82,8 @@ app.post("/signup", async (req, res) => {
 
 })
 app.post("/login", async (req, res) => {
-  const { username, email, password } = req.body
+  console.log("hitted")
+  const {email, password } = req.body
   const user = await usermodel.findOne({ email: email })
   console.log("done ree")
   if (!user) {
@@ -85,7 +93,7 @@ app.post("/login", async (req, res) => {
   bcrypt.compare(password, user.password, (err, result) => {
     if (result == true) {
 
-      const token = jwt.sign({ email: email }, "secretkey")
+      const token = jwt.sign({ email: email }, JWT_SECRET)
       res.cookie("token", token, {
         httpOnly: true,
         secure: false,
@@ -109,7 +117,7 @@ app.post("/creat_post", image.array('image'), async (req, res) => {
 
   const token = req.cookies.token
 
-  const cokie = jwt.verify(token, "secretkey")
+  const cokie = jwt.verify(token,JWT_SECRET)
   console.log(cokie.email)
 
 
@@ -144,7 +152,7 @@ app.post("/post_data", async (req, res) => {
 
 
   const token = req.cookies.token;
-  const decoded = jwt.verify(token, "secretkey");
+  const decoded = jwt.verify(token, JWT_SECRET);
   const currentUser = await usermodel.findOne({ email: decoded.email });
 
   const postss = await postmodel.find().populate("userid").sort({ createdAt: -1 })
@@ -193,7 +201,7 @@ app.post("/profile_data", profile.single("pp"), async (req, res) => {
   const username = req.body.username;
   const token = req.cookies.token
 
-  const decoded = jwt.verify(token, "secretkey")
+  const decoded = jwt.verify(token, JWT_SECRET)
   const profile_id = await usermodel.findOneAndUpdate({ email: decoded.email }, {
     username,
     bio,
@@ -229,7 +237,7 @@ app.post("/profile_data", profile.single("pp"), async (req, res) => {
 app.post("/my_posts", async (req, res) => {
 
   const token = req.cookies.token
-  const cokie = jwt.verify(token, "secretkey")
+  const cokie = jwt.verify(token,JWT_SECRET )
 
   const user = await usermodel.findOne({ email: cokie.email }).populate({
     path: 'posts',
@@ -307,7 +315,7 @@ app.post("/post/:postid", async (req, res) => {
   const text = req.body.comment
   const token = req.cookies.token
 
-  const cokie = jwt.verify(token, "secretkey")
+  const cokie = jwt.verify(token, JWT_SECRET )
   const userinfo = await usermodel.findOne({ email: cokie.email })
   const post= await postmodel.findById(postid).populate('userid')
 
@@ -345,7 +353,7 @@ app.post("/like_data/:postid", async (req, res) => {
   const postid = req.params.postid
   const token = req.cookies.token
 
-  const cokkie = jwt.verify(token, "secretkey")
+  const cokkie = jwt.verify(token,JWT_SECRET )
   const user = await usermodel.findOne({ email: cokkie.email })
   const post = await postmodel.findById(postid).populate('userid')
 
@@ -383,7 +391,7 @@ app.post("/save_data/:postid", async (req, res) => {
   const postid = req.params.postid
   const token = req.cookies.token
 
-  const cookie = jwt.verify(token, "secretkey")
+  const cookie = jwt.verify(token,JWT_SECRET )
   const user = await usermodel.findOne({ email: cookie.email })
 
   if (user.saved.includes(postid)) {
@@ -405,7 +413,7 @@ app.post("/save_data/:postid", async (req, res) => {
 
 app.post("/saved_posts", async (req, res) => {
   const token = req.cookies.token
-  const cokkie = jwt.verify(token, "secretkey")
+  const cokkie = jwt.verify(token,JWT_SECRET )
   const user = await usermodel.findOne({ email: cokkie.email }).populate({
     path: "saved",
     populate: {
@@ -456,7 +464,7 @@ app.post("/search_data", async (req, res) => {
 })
 app.post("/ntfs_data",async (req,res)=>{
   const token = req.cookies.token
-  const cookie= jwt.verify(token,"secretkey")
+  const cookie= jwt.verify(token,JWT_SECRET )
  const user=await usermodel.findOne({email:cookie.email})
  const ntf = await ntf_model.find({ to_user: user._id })
   .populate('to_user')
@@ -491,4 +499,4 @@ const posts = ntf.postid.posts.map(p =>
 res.json(notifications)
 
 })
-app.listen(3000)
+module.exports = app;

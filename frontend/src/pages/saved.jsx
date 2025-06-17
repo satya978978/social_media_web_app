@@ -15,7 +15,7 @@ function SavedPosts() {
   useEffect(() => {
     const fetchSavedPosts = async () => {
       try {
-        const res = await axios.post("http://localhost:3000/saved_posts", {}, { withCredentials: true });
+        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/saved_posts`, {}, { withCredentials: true });
         setSavedPosts(res.data);
       } catch (error) {
         console.error("Error fetching saved posts:", error);

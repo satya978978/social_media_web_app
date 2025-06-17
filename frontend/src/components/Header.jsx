@@ -12,7 +12,7 @@ function Sidebar() {
 
   useEffect(() => {
     const fetchImage = async () => {
-      const res = await axios.post("http://localhost:3000/profile_data", {}, {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/profile_data`, {}, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" }
       });

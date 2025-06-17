@@ -18,7 +18,7 @@ function Panels({ showSearchPanel, setShowSearchPanel, showNotifications, setSho
     }
 
     const searchUsers = async () => {
-      const res = await axios.post("http://localhost:3000/search_data", { Search_input }, { withCredentials: true });
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/search_data`, { Search_input }, { withCredentials: true });
       set_searched_user(res.data);
     };
     searchUsers();
@@ -26,7 +26,7 @@ function Panels({ showSearchPanel, setShowSearchPanel, showNotifications, setSho
 
   useEffect(() => {
     const fetchNotifications = async () => {
-      const res = await axios.post("http://localhost:3000/ntfs_data", {}, { withCredentials: true });
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/ntfs_data`, {}, { withCredentials: true });
       setnotification_S(res.data);
     };
     fetchNotifications();

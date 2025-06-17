@@ -33,7 +33,7 @@ function Profile() {
       form.append("bio", bio)
       form.append("username", username)
 
-      await axios.post("http://localhost:3000/profile_data", form, {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/profile_data`, form, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data"
@@ -51,7 +51,7 @@ function Profile() {
   };
 
   useEffect(() => {
-    axios.post("http://localhost:3000/profile_data", {}, { withCredentials: true })
+    axios.post(`${import.meta.env.VITE_BACKEND_URL}/profile_data`, {}, { withCredentials: true })
       .then((res) => {
         setrecevied_username(res.data.username)
         setuserbio(res.data.bio)
@@ -63,7 +63,7 @@ function Profile() {
   }, [])
 
   useEffect(() => {
-    axios.post("http://localhost:3000/my_posts", {}, { withCredentials: true })
+    axios.post(`${import.meta.env.VITE_BACKEND_URL}/my_posts`, {}, { withCredentials: true })
       .then((res) => {
         setresponse(res.data)
       })
