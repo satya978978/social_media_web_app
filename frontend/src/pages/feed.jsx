@@ -1,5 +1,5 @@
 import Header from '../components/Header'
-import CreatePost from '../components/CreatePost'
+import CreatePost from '../components/createpost'
 import Post from '../components/Post'
 
 import dayjs from 'dayjs'
