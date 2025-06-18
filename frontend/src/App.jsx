@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/layout'
 import Feed from './pages/feed'
 import Profile from './pages/profile'
-import Login from './pages/Login'
+import Login from './pages/login'
 import Signup from './pages/Signup'
 import Saved from './pages/saved'
 
