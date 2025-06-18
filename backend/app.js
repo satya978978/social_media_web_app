@@ -33,7 +33,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const app = express()
 app.use(cookieparser())
 app.use(cors({
-  origin: 'https://satya-world.onrender.com',
+  origin: 'http://localhost:5173',
   credentials: true
 }))
 app.use(express.json())
