@@ -30,7 +30,7 @@ function Feed() {
           {posts.map(post => (
             <Post
               key={post._id}
-              username={post.userid}
+              username={post.userid.username || "not load username"}
               caption={post.caption}
               time={post.date}
               media={post.images}
