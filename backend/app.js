@@ -39,6 +39,15 @@ app.use(cors({
 app.use(express.json())
 
 
+// Basic home route (optional)
+app.get("/", (req, res) => {
+  res.send("API is working");
+});
+
+// Prevent favicon.ico crash
+app.get("/favicon.ico", (req, res) => res.status(204).end());
+
+
 
 app.post("/signup", async (req, res) => {
 
