@@ -73,11 +73,11 @@ app.post("/signup", async (req, res) => {
 
     });
     const token = jwt.sign({ email: email },JWT_SECRET )
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "Lax"
-    })
+   res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,          
+  sameSite: "None"     
+})
 
 
     res.json({
