@@ -191,7 +191,7 @@ app.post("/post_data", async (req, res) => {
     const savedbyuser = currentUser.saved.map(id => id.toString()).includes(post._id.toString())
     return {
       _id: post._id,
-      userid: post.userid ? post.userid.username : "Unknown",
+      username: post.userid ? post.userid.username : "Unknown",
       caption: post.caption,
       images: media,
       date: post.Date,
