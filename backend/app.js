@@ -104,11 +104,12 @@ app.post("/login", async (req, res) => {
 console.log("JWT_SECRET IN USE:", JWT_SECRET)
 
       const token = jwt.sign({ email: email }, JWT_SECRET)
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "Lax"
-      })
+    res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "None"
+})
+
       res.json({
         message: "ok"
       }
