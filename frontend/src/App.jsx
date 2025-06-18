@@ -3,7 +3,7 @@ import Layout from './components/layout'
 import Feed from './pages/feed'
 import Profile from './pages/profile'
 import Login from './pages/login'
-import Signup from './pages/Signup'
+import Signup from './pages/signup'
 import Saved from './pages/saved'
 
 function App() {
