@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, User, Mail, Lock, Sparkles } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 function Login() {
   const navigate = useNavigate()
@@ -145,13 +146,14 @@ console.log("Sending login to:", `${import.meta.env.VITE_BACKEND_URL}/login`);
           <div className="mt-8 text-center">
             <p className="text-gray-400 text-sm">
               Don't have an account?{' '}
-              <a 
-                href="/signup" 
-                className="text-white font-medium hover:text-gray-300 transition-colors duration-200 relative group"
-              >
-                Sign up
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full transition-all duration-300"></span>
-              </a>
+             <Link
+  to="/signup"
+  className="text-white font-medium hover:text-gray-300 transition-colors duration-200 relative group"
+>
+  Sign up
+  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-full transition-all duration-300"></span>
+</Link>
+
             </p>
           </div>
         </div>
